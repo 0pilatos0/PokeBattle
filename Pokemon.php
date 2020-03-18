@@ -62,4 +62,7 @@ class Pokemon{
             }
         }  
     }
+    public function Calculate(){
+        
+    }
 }
