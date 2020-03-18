@@ -62,7 +62,10 @@ class Pokemon{
             }
         }  
     }
+<<<<<<< HEAD
     public function Calculate(){
         
     }
+=======
+>>>>>>> master
 }
