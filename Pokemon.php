@@ -1,20 +1,4 @@
 <?php
-class Resistance{
-    public $energyType, $value;
-
-    public function __construct($energyType, $value){
-        $this->energyType = new EnergyType($energyType);
-        $this->value = $value;
-    }
-}
-class Weakness{
-    public $energyType, $multiplier;
-
-    public function __construct($energyType, $multiplier){
-        $this->energyType = new EnergyType($energyType);
-        $this->multiplier = $multiplier;
-    }
-}
 class EnergyType{
     public $type;
 
@@ -30,6 +14,34 @@ class Attack{
         $this->damage = $damage;
     }
 }
+class Weakness{
+    public $energyType, $multiplier;
+
+    public function __construct($energyType, $multiplier){
+        $this->energyType = new EnergyType($energyType);
+        $this->multiplier = $multiplier;
+    }
+}
+class Resistance{
+    public $energyType, $value;
+
+    public function __construct($energyType, $value){
+        $this->energyType = new EnergyType($energyType);
+        $this->value = $value;
+    }
+}
+class RequestDataFromAllPokemons{
+    public static $pokemons = array();
+    public static function getPopulation(){
+        for ($i=0; $i < count(self::$pokemons); $i++) { 
+            if(self::$pokemons[$i]->health <= 0){
+                unset(self::$pokemons[$i]);
+            }
+        }
+        echo count(self::$pokemons) . " Pokemons left <br>";
+    }
+}
+
 class Pokemon{
     public $name, $energyType, $hitpoints, $health, $attacks = array(), $weakness, $resistance;
 
@@ -43,6 +55,7 @@ class Pokemon{
         }
         $this->weakness = new Weakness($weakness[0], $weakness[1]);
         $this->resistance = new Resistance($resistance[0], $resistance[1]);
+        array_push(RequestDataFromAllPokemons::$pokemons, $this);
     }
 
     public function attack($enemy, $attack){
@@ -58,14 +71,12 @@ class Pokemon{
                 echo $enemy->name . " has " . $enemy->health . " hp left <br>";
                 $enemy->health -= $tempDamage;
                 echo $this->name . " did " . $tempDamage . " damage to " . $enemy->name . " with " . $attack . "<br>";
+                if($enemy->health <= 0){
+                    $enemy->health = 0;
+                }
                 echo $enemy->name . " has " . $enemy->health . " hp left <br>";
+                RequestDataFromAllPokemons::getPopulation();
             }
         }  
     }
-<<<<<<< HEAD
-    public function Calculate(){
-        
-    }
-=======
->>>>>>> master
 }
