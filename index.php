@@ -1,8 +1,40 @@
 <?php
-    require "Pokemon.php";
-    $pokemon1 = new Pokemon("pikachu", "Lightning", 60, [["Electric Ring", 50], ["Pika punch", 20]], ["Fire", 1.5], ["Resistance", 20]);
-    $pokemon2 = new Pokemon("charmeleon", "Fire", 60, [["Head Butt", 10], ["Flare", 30]], ["Water", 2], ["Lightning", 10]);
 
-    $pokemon1->attack($pokemon2, "Electric Ring");
-    $pokemon2->attack($pokemon1, "Flare");
-?>
+require 'Pokemon.php';
+require 'EnergyType.php';
+require 'Attack.php';
+require 'Weakness.php';
+require 'Resistances.php';
+
+require 'pokemon/Pikachu.php';
+require 'pokemon/Charmeleon.php';
+
+require 'energyType/Fighting.php';
+require 'energyType/Fire.php';
+require 'energyType/Lightning.php';
+require 'energyType/Water.php';
+
+require 'attacks/ElectricRing.php';
+require 'attacks/Flare.php';
+require 'attacks/HeadButt.php';
+require 'attacks/PikaPunch.php';
+
+require 'resistances/Fighting.php';
+require 'resistances/Lightning.php';
+
+require 'weakness/Fire.php';
+require 'weakness/Water.php';
+
+$pikachu = new \Pokemon\Pikachu();
+$charmeleon = new \Pokemon\Charmeleon();
+
+// Print health of both pikachu's
+print($pikachu . ' health: ' . $pikachu->getHealth() . '<br>');
+print($charmeleon . ' health: ' . $charmeleon->getHealth() . '<br>');
+
+$pikachu->doAttack(new \Attack\ElectricRing(), $charmeleon);
+$charmeleon->doAttack(new \Attack\Flare(), $pikachu);
+
+// Print health of both pikachu's
+print($pikachu . ' health: ' . $pikachu->getHealth() . '<br>');
+print($charmeleon . ' health: ' . $charmeleon->getHealth() . '<br>');
