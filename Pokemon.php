@@ -20,6 +20,7 @@ class Pokemon
         $this->weaknesses = $weaknesses;
         $this->resistances = $resistances;
     }
+    
 
     function __toString()
     {
